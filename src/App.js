@@ -9,17 +9,21 @@ import Header from './components/header/header.component.jsx';
 import { auth } from './firebase/firebase.utils';
 
 const App = () => {
-    const [, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
 
     useEffect(() => {
+        console.log('App mounted');
         auth.onAuthStateChanged((user) => {
             setCurrentUser(user);
         });
+        return function cleanup() {
+            console.log('App unmounted');
+        };
     });
 
     return (
         <div>
-            <Header />
+            <Header currentUser={currentUser}/>
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/shop" element={<ShopPage />} />

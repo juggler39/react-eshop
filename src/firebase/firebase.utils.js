@@ -2,6 +2,7 @@
 import { initializeApp } from 'firebase/app';
 import {
     getAuth,
+    signOut,
     createUserWithEmailAndPassword,
     GoogleAuthProvider,
     signInWithPopup,
@@ -31,3 +32,13 @@ provider.setCustomParameters({
     login_hint: 'select_account',
 });
 export const signInWithGoogle = () => signInWithPopup(auth, provider);
+export const signOutFirebase = () => {
+    signOut(auth)
+        .then(() => {
+            // Sign-out successful.
+        })
+        .catch((error) => {
+            // An error happened.
+        });
+}
+
